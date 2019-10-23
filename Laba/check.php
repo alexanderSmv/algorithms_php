@@ -1,35 +1,5 @@
 <?php
-////$file_path='public/images/';
-////$f_name=trim($_POST['f_name']);
-////$l_name=trim($_POST['l_name']);
-////$login=trim($_POST['login']);
-////$pas=trim($_POST['pas']);
-////$id_role=trim($_POST['id_role']);
-////$fileToUpload=trim($_POST['fileToUpload']);
-//////echo $f_name.",   ".$l_name.",   ".$login.",   ".$pas.",   ".$id_role.",   ".$fileToUpload.",   ".$file_path;
-////
-////if((mb_strlen($f_name)==0)or(mb_strlen($f_name)>35)){
-////    echo "Недопустимая длинна имени!<br>";
-////    echo "<a href='_index.html'>Попробуйте снова</a>";
-////    exit;
-////} elseif((mb_strlen($l_name)==0)or(mb_strlen($l_name)>35)){
-////    echo "Недопустимая длинна фамилии!<br>";
-////    echo "<a href='_index.html'>Попробуйте снова</a>";
-////    exit;
-////}elseif((mb_strlen($login)==0)or(mb_strlen($login)>35)){
-////    echo "Недопустимая длинна логина! <br>";
-////    echo "<a href='_index.html'>Попробуйте снова</a>";
-////    exit;
-////}elseif((mb_strlen($pas)<6)or(mb_strlen($pas)>12)){
-////    echo "Недопустимый парооль (Длина 6-12 символов)<br>";
-////    echo "<a href='_index.html'>Попробуйте снова</a>";
-////    exit;}
-////}elseif (($id_role!==1)or($id_role!==2)){
-////    echo "Вы не выбрали роль!<br>";
-////    echo "<a href='_index.html'>Попробуйте снова!</a>";
-////    exit;
-////}
-//
+
 $mysql = new mysqli('laba','root','','testdb');
 if ($mysql ===false){
     die("Error: Couldn't connect!". mysqli_connect_error());
@@ -105,9 +75,15 @@ if ($mysql ===false){
         echo "<a href='/'>Попробуйте снова</a>";
         exit;}
 
-    $mysql->query("INSERT INTO `users`(`f_name`, `l_name`, `pas`, `id_role`, `login`, `img`)
+
+
+
+
+
+        $mysql->query("INSERT INTO `users`(`f_name`, `l_name`, `pas`, `id_role`, `login`, `img`)
             VALUES('$f_name','$l_name','$pas','$id_role','$login', '$target_file') ");
     $mysql->close();
+
 
     header('Location: /');
 }

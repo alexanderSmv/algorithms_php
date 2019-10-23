@@ -1,11 +1,14 @@
 <?php
 //выборка рнадомная добавить много записей и фото
+$curIndex=$_GET['id'];
 $con=mysqli_connect("laba","root", "","testdb");
 if($con->connect_error){
     die("Connection failed: ".$con->connect_error);
 }
 $sql="SELECT * FROM `users` ORDER BY RAND() LIMIT 1";
-$result=$con->query("SELECT * FROM `users` ORDER BY RAND() LIMIT 1");
+$result=$con->query("SELECT * FROM `users` WHERE `id` = '$curIndex'");
+//"SELECT * FROM `users`
+//                                    WHERE `login`='$login' AND `pas`='$pas'"
 $user= $result->fetch_assoc();
 if(count($user)==0){
     echo "Такой пользователь не найден!";
@@ -57,17 +60,11 @@ if(count($user)==0){
 <body>
 
 <h2 style="text-align:center">Registred profile</h2>
-
 <div class="card">
     <?php echo "<img src=".$user['img']." style=\"width:100%\">";?>
     <h1 >
-        Профиль пользователя: <?php echo $user['f_name'];
-//        if(isset($_GET['come'])){
-//            $var = $_GET['come']; //some_value
-//        }
-//        echo $var;
-//        echo $var;
-
+         <?php echo $user['f_name']." ".$user['l_name']."<br>";
+         echo $user['login'];
         ?>
     </h1>
     <p class="title">CEO & Founder, Example</p>
@@ -78,7 +75,9 @@ if(count($user)==0){
         <a href="#"><i class="fa fa-linkedin"></i></a>
         <a href="#"><i class="fa fa-facebook"></i></a>
     </div>
-    <p><button>Contact</button></p>
+    <p> <button><a style="color: white" href="/">Go Back</a></button>
+<!--        <button><a style="color: white" href="index.php">Go back</a></button>-->
+    </p>
 </div>
 
 </body>

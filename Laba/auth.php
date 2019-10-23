@@ -20,7 +20,6 @@ if ($mysql ===false){
         setcookie('user',$user['login'],time()+3600,"/");
         setcookie('password',$user['pas'],time()+3600,"/");
         setcookie('img',$user['img'],time()+3600,"/");
-
     }
 }
 

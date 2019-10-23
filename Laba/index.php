@@ -46,7 +46,6 @@
             </form>
         </div>
 
-<!--        <h3 style="color: antiquewhite">Таблица пользователей</h3>-->
             <table class="tab">
                 <tr align="center" bgcolor="red">
                     <th colspan="5"> Наши лучшие пользователи!</th>
@@ -66,37 +65,14 @@
                 $sql="SELECT * FROM `users`,`roles` WHERE `users`.`id_role`=`roles`.`id_r`" ;
                 $result_users=$con->query($sql);
 
-//
                 if ($result_users->num_rows>0){
                     $index=0;
                     while ($row=$result_users->fetch_assoc()){
-
-//                        echo "<tr><td>".$row['id']."</td><td>".$row['f_name']."</td><td>".$row['l_name']."</td><td>".$row['login']."</td><td>".$row['title']."</td></tr>";
-//                        echo "<tr><td>".    "<a href='https://www.google.com'>".$row['id']."</a>"    ."</td><td>".$row['f_name']."</td><td>".$row['l_name']."</td><td>".$row['login']."</td><td>".$row['title']."</td></tr>";
-
-//echo
-//"<form method='post' action='generateUserInfo.php'>
-//
-//</form>";
                         echo "<tr><td>"
-                                ."<a  href='generateUserInfo.php'>".$row['id']."</a>"
+                                ."<a  href='generateUserInfo.php?id=".$row['id']."'>".$row['id']."</a>"
                                 ."</td><td>".$row['f_name']."</td><td>".$row['l_name'].
                                 "</td><td>".$row['login']."</td><td>".$row['title']."
                             </td></tr>";
-//                        echo "<tr><td>";
-//                            echo "<a  href=\"generateUserInfo.php\"?come=".row['1']." ]\">".$row['id']."</a>";
-//                            echo "</td><td>".$row['f_name']."</td><td>".$row['l_name'];
-//                            echo "</td><td>".$row['login']."</td><td>".$row['title']."</td></tr>";
-
-
-
-
-
-
-
-
-// echo "<tr><td>".    "<button type='button' formaction=\"red.php\"></button>"    ."</td><td>".$row['f_name']."</td><td>".$row['l_name']."</td><td>".$row['login']."</td><td>".$row['title']."</td></tr>";
-//                        echo "<button type='submit' onclick='red.php '></button>";
                     }
                 }
                 else{
@@ -107,13 +83,59 @@
 
 <!--        <div class="col">-->
             <?php elseif($_COOKIE['user'] == 'admin'): ?>
-                <p>Hello <?= $_COOKIE['user']?>.  ВЫ ЧТО АДМИН??? Чтоб выйти нажми <a href="exit.php">сюда</a></p>
-            <?php else:?>
-                <p style="color: red">Hello <?= $_COOKIE['f_name']?>. Чтоб выйти нажми <a href="exit.php">сюда</a></p>
-
 
                 <div class="card">
-<!--                    <img src="https://images.ua.prom.st/1090153500_w640_h640_foto-na-dokumenty.jpg" alt="John" style="width:100%">-->
+                    <img src="<?=$_COOKIE['img']?>" alt="John" style="width:100%">
+                    <h1 >
+                        Hello <?= $_COOKIE['f_name']?>
+                    </h1>
+                    <p class="title">CEO & Founder, Example</p>
+                    <p>Harvard University</p>
+                    <div style="margin: 24px 0;">
+                        <p><button><a style="color: white" href="redact.php">Redact</a></button></p>
+                        <p><button><a style="color: white" href="admin/addForm.php">Add new user</a></button></p>
+                        <p><button><a style="color: white" href="exit.php">Exit</a></button></p>
+                    </div>
+
+                </div>
+                <table class="tab">
+                    <tr align="center" bgcolor="red">
+                        <th colspan="5"> Наши лучшие пользователи!</th>
+                    </tr>
+                    <tr>
+                        <th>Id</th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Login</th>
+                        <th>Role</th>
+                    </tr>
+                    <?php
+                    $con=mysqli_connect("laba","root", "","testdb");
+                    if($con->connect_error){
+                        die("Connection failed: ".$con->connect_error);
+                    }
+                    $sql="SELECT * FROM `users`,`roles` WHERE `users`.`id_role`=`roles`.`id_r`" ;
+                    $result_users=$con->query($sql);
+
+                    if ($result_users->num_rows>0){
+                        $index=0;
+                        while ($row=$result_users->fetch_assoc()){
+                            echo "<tr><td>"
+                                ."<a  href='admin.php?id=".$row['id']."'>".$row['id']."</a>"
+                                ."</td><td>".$row['f_name']."</td><td>".$row['l_name'].
+                                "</td><td>".$row['login']."</td><td>".$row['title']."
+                            </td></tr>";
+                        }
+                    }
+                    else{
+                        echo "none in table";
+                    }
+                    ?>
+                </table>
+
+
+            <?php else:?>
+                <div class="card">
                     <img src="<?=$_COOKIE['img']?>" alt="John" style="width:100%">
                     <h1 >
                         Hello <?= $_COOKIE['f_name']?>
@@ -145,19 +167,23 @@
                     $result_users=$con->query($sql);
 
                     if ($result_users->num_rows>0){
+                        $index=0;
                         while ($row=$result_users->fetch_assoc()){
-                            echo "<tr><td>".$row['id']."</td><td>".$row['f_name']."</td><td>".$row['l_name']."</td><td>".$row['login']."</td><td>".$row['title']."</td></tr>";
+                            echo "<tr><td>"
+                                ."<a  href='generateUserInfo.php?id=".$row['id']."'>".$row['id']."</a>"
+                                ."</td><td>".$row['f_name']."</td><td>".$row['l_name'].
+                                "</td><td>".$row['login']."</td><td>".$row['title']."
+                            </td></tr>";
                         }
                     }
                     else{
                         echo "none in table";
                     }
-
                     ?>
                 </table>
 
         <?php endif; ?>
 
-<!--        </div>-->
+
 </body>
 </html>

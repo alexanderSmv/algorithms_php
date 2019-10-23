@@ -1,8 +1,29 @@
 <?php
-$mysql = new mysqli('laba','root','','testdb');
-if ($mysql ===false){
-    die("Error: Couldn't connect!". mysqli_connect_error());
-}else{
+
+$curIndex=$_GET['index'];
+$con=mysqli_connect("laba","root", "","testdb");
+if($con->connect_error){
+    die("Connection failed: ".$con->connect_error);
+}
+//$sql="SELECT * FROM `users` ORDER BY RAND() LIMIT 1";
+$result=$con->query("SELECT * FROM `users` WHERE `id` = '$curIndex'");
+//"SELECT * FROM `users`
+//                                    WHERE `login`='$login' AND `pas`='$pas'"
+$user= $result->fetch_assoc();
+if(count($user)==0){
+    echo "Такой пользователь не найден!";
+    exit;
+}
+?>
+
+
+
+
+<?php
+$mysql = new mysqli('laba', 'root', '', 'testdb');
+if ($mysql === false) {
+    die("Error: Couldn't connect!" . mysqli_connect_error());
+} else {
 
     $target_dir = "public/images/";
     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
@@ -31,44 +52,41 @@ if ($mysql ===false){
         $uploadOk = 0;
     }
 
-    if ($uploadOk == 0) {
-    } else {
-        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        } else {
-        }
-    }
 
 
+//    $f_name = trim($user['f_name']);
+//    $l_name = trim($user['l_name']);
+//    $login = trim($user['login']);
+//    $pas = trim($user['pas']);
+//    $userPhoto = trim($user['img']);
+//    $tmp=$user['id'];
     $f_name=trim($_POST['f_name']);
     $l_name=trim($_POST['l_name']);
     $login=trim($_POST['login']);
     $pas=trim($_POST['pas']);
-    $fileToUpload=trim($_POST['fileToUpload']);
-//echo $f_name.",   ".$l_name.",   ".$login.",   ".$pas.",   ".$id_role.",   ".$fileToUpload.",   ".$file_path;
+    $role=$_POST['id_role'];
 
-    if((mb_strlen($f_name)==0)or(mb_strlen($f_name)>35)){
+
+    if ((mb_strlen($f_name) == 0) or (mb_strlen($f_name) > 35)) {
         echo "Недопустимая длинна имени!<br>";
         echo "<a href='/'>Попробуйте снова</a>";
         exit;
-    } elseif((mb_strlen($l_name)==0)or(mb_strlen($l_name)>35)){
+    } elseif ((mb_strlen($l_name) == 0) or (mb_strlen($l_name) > 35)) {
         echo "Недопустимая длинна фамилии!<br>";
         echo "<a href='/'>Попробуйте снова</a>";
         exit;
-    }elseif((mb_strlen($login)==0)or(mb_strlen($login)>35)){
+    } elseif ((mb_strlen($login) == 0) or (mb_strlen($login) > 35)) {
         echo "Недопустимая длинна логина! <br>";
         echo "<a href='/'>Попробуйте снова</a>";
         exit;
-    }elseif((mb_strlen($pas)<6)or(mb_strlen($pas)>12)){
+    } elseif ((mb_strlen($pas) < 6) or (mb_strlen($pas) > 12)) {
         echo "Недопустимый парооль (Длина 6-12 символов)<br>";
         echo "<a href='/'>Попробуйте снова</a>";
-        exit;}
+        exit;
+    }
 
-$curLogin=$_COOKIE['user'];
-    $mysql->query("UPDATE `users` SET `f_name` = '$f_name', `l_name` = '$l_name', `pas` = '$pas', `login` = '$login', `img` = '$target_file' WHERE `users`.`login` = '$curLogin'");
+    $mysql->query("UPDATE `users` SET `f_name` = '$f_name', `l_name` = '$l_name', `pas` = '$pas', `id_role` = '$role', `login` = '$login', `img` = '$target_file' WHERE `users`.`id` = '$curIndex'");
     $mysql->close();
 
-    if ($_COOKIE['user']!='admin'){
-        setcookie('user',$user['login'],time()-3600,"/");
-    }
     header('Location: /');
 }

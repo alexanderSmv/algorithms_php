@@ -1,0 +1,79 @@
+body{
+    background-image: url("https://images5.alphacoders.com/287/287007.jpg");
+}
+.visitor{
+    margin-left: 250px;
+    color: aliceblue;
+}
+h2{
+    color: antiquewhite;
+    margin-left: 150px;
+    padding-top: 50px;
+}
+form{
+    margin-left: 150px;
+    width: 350px;
+    float: left;
+}
+
+.btn{
+    background-color: #1ac02b;
+}
+.tab{
+    background-color: #a7f0b5;
+    border: 1px solid grey;
+    margin-top: 55px;
+    margin-left: 40%;
+    margin-bottom: 25px;
+}
+th,td{
+    border: 1px solid grey;
+}
+h3{
+    background-color: red;
+}
+
+
+
+
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+}
+
+.title {
+    color: grey;
+    font-size: 18px;
+}
+
+button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+}
+
+a {
+    text-decoration: none;
+    font-size: 22px;
+    color: black;
+}
+
+button:hover, a:hover {
+    opacity: 0.7;
+}
+.out{
+    color: red;
+    margin-left: 150px;
+    padding-top: 10px;
+}
